@@ -11,10 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.rssclient.R
 import com.example.rssclient.adapter.FeedListAdapter
+import com.example.rssclient.dataBase.model.RssFeedItem
 import com.example.rssclient.dataBase.model.RssLink
 import com.example.rssclient.databinding.FeedFragmentBinding
 import com.example.rssclient.stringFromResources
-import me.toptas.rssconverter.RssItem
 
 
 class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
@@ -39,8 +39,8 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
         setRecyclerViewAdapter()
 
         val rssLink = getRssLink()
-        viewModel.getData(rssLink.link).observe(this, Observer {
-            adapter.setList(it.items!!)
+        viewModel.getData(rssLink.id, rssLink.link).observe(this, Observer {
+            adapter.setList(it.items)
         })
     }
 
@@ -62,10 +62,8 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
         return RssLink()
     }
 
-    override fun onItemClick(data: RssItem) {
+    override fun onItemClick(data: RssFeedItem) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.link))
         startActivity(browserIntent)
     }
-
-
 }

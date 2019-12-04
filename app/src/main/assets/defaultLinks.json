@@ -1,0 +1,17 @@
+[
+  {
+    "id":0,
+    "linkName": "Link 1",
+    "link": "https://news.yandex.ru/Saint_Petersburg/index.rss"
+  },
+  {
+    "id":0,
+    "linkName": "Link 2",
+    "link": "https://news.yandex.ru/Yuzhno-Sakhalinsk/index.rss"
+  },
+  {
+    "id":0,
+    "linkName": "Link 3",
+    "link": "https://news.yandex.ru/Vladivostok/index.rss"
+  }
+]

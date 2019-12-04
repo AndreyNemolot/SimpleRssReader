@@ -1,4 +1,4 @@
-package com.example.rssclient.repository.network
+package com.example.rssclient
 
 import retrofit2.Call
 import retrofit2.Callback

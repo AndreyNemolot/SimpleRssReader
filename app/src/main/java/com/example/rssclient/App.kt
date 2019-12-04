@@ -1,14 +1,16 @@
 package com.example.rssclient
 
 import android.app.Application
-import android.widget.Toast
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.rssclient.dataBase.AppDatabase
 import com.example.rssclient.dataBase.model.RssLink
 import com.example.rssclient.repository.local.RssLinkRepository
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import kotlinx.coroutines.*
+import java.io.InputStream
 
 
 class App : Application() {
@@ -21,43 +23,31 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        setDefaultDBValues()
+    }
 
+    private fun setDefaultDBValues() {
         val scope = CoroutineScope(Dispatchers.Main)
+        val defaultLinksList = DefaultRssLinksHolder(this).getCityList()
         val rdc: RoomDatabase.Callback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 scope.launch {
                     val repo = RssLinkRepository(database!!)
-                    repo.insertRssLink(
-                        RssLink(
-                            0,
-                            resources.getString(R.string.default_link_name_1),
-                            resources.getString(R.string.default_link_1)
-                        )
-                    )
-                    repo.insertRssLink(
-                        RssLink(
-                            0,
-                            resources.getString(R.string.default_link_name_2),
-                            resources.getString(R.string.default_link_2)
-
-                        )
-                    )
-                    repo.insertRssLink(
-                        RssLink(
-                            0,
-                            resources.getString(R.string.default_link_name_3),
-                            resources.getString(R.string.default_link_3)
-                        )
+                    repo.insertRssLinks(
+                        defaultLinksList
                     )
                 }
             }
         }
-
-        database = Room.databaseBuilder(this, AppDatabase::class.java, "database")
+        database = Room.databaseBuilder(
+            this,
+            AppDatabase::class.java, stringFromResources(R.string.data_base_name)
+        )
             .addCallback(rdc)
             .build()
         scope.launch {
             database!!.rssLinkDao().getAll()
         }
     }
+
 }

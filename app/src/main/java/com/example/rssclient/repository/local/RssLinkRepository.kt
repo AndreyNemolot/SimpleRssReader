@@ -1,29 +1,32 @@
 package com.example.rssclient.repository.local
 
-import androidx.room.withTransaction
+import androidx.lifecycle.LiveData
+
 import com.example.rssclient.dataBase.AppDatabase
 import com.example.rssclient.dataBase.model.RssLink
+import kotlinx.coroutines.*
 
 class RssLinkRepository(val database: AppDatabase) {
 
-    suspend fun insertRssLink(rssLink:RssLink){
-        database.withTransaction{
+    fun insertRssLink(rssLink: RssLink) {
+        CoroutineScope(Dispatchers.Main).launch {
             database.rssLinkDao().insert(rssLink)
         }
     }
 
-    suspend fun removeRssLink(rssLink:RssLink){
-        database.withTransaction{
+    fun removeRssLink(rssLink: RssLink) {
+        CoroutineScope(Dispatchers.Main).launch {
             database.rssLinkDao().delete(rssLink)
         }
     }
 
-    suspend fun getAllRssLink():List<RssLink>{
-        var listRssLinks:List<RssLink> = ArrayList<RssLink>()
-        database.withTransaction{
-            listRssLinks= database.rssLinkDao().getAll()
+    fun insertRssLinks(rssLinks: Iterable<RssLink>) {
+        CoroutineScope(Dispatchers.Main).launch {
+            database.rssLinkDao().insert(rssLinks)
         }
+    }
 
-        return listRssLinks
+    fun getAllRssLink(): LiveData<List<RssLink>> {
+        return database.rssLinkDao().getAll()
     }
 }

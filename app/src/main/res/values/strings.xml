@@ -14,12 +14,9 @@
     <string name="key_rss_link">rss_link</string>
     <string name="key_feed_link">feed_link</string>
 
-    <string name="default_link_1">https://news.yandex.ru/Saint_Petersburg/index.rss</string>
-    <string name="default_link_2">https://news.yandex.ru/Yuzhno-Sakhalinsk/index.rss</string>
-    <string name="default_link_3">https://news.yandex.ru/Vladivostok/index.rss</string>
-    <string name="default_link_name_1">Link 1</string>
-    <string name="default_link_name_2">Link 2</string>
-    <string name="default_link_name_3">Link 3</string>
+    <string name="data_base_name">database</string>
+    <string name="default_links_file">defaultLinks.json</string>
+
 
 
 </resources>

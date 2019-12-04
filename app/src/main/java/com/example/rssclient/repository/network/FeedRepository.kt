@@ -2,6 +2,6 @@ package com.example.rssclient.repository.network
 
 import me.toptas.rssconverter.RssFeed
 
-interface RssRepository {
+interface FeedRepository {
     suspend fun getData(query: String): RssFeed
 }

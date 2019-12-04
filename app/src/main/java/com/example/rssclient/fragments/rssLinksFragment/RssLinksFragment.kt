@@ -95,7 +95,6 @@ class RssLinksFragment : Fragment(), RssLinkAdapter.OnItemClickListener {
                 val newRssLink = RssLink(0, nameText, linkText)
                 viewModel.addRssLink(newRssLink)
                 Toast.makeText(activity, "Added $nameText", Toast.LENGTH_SHORT).show()
-                viewModel.getAllRssLinks()
             }
 
         }
