@@ -27,8 +27,6 @@ class FragmentBuilder(
             chosenFragment = fragmentTo
             fragmentTransaction.replace(R.id.fragmentContainer, chosenFragment, to)
 
-//            fragmentTransaction.show(chosenFragment)
-//            fragmentTransaction.hide(fragmentManager.fragments[fragmentManager.fragments.size-1])
         }
         return this
     }
