@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">RssClient</string>
+    <string name="rss_fragment_tag">rss_fragment</string>
+    <string name="feed_fragment_tag">feed_fragment</string>
+    <string name="web_fragment_tag">web_fragment</string>
+
+
+    <string name="add_rss_link_dialog_text">Please input new rss link</string>
+    <string name="add_new_rss_link">Add</string>
+
+    <string name="link_dialog_hint">Enter the link</string>
+    <string name="link_name_dialog_hint">Enter the link name</string>
+
+    <string name="key_rss_link">rss_link</string>
+    <string name="key_feed_link">feed_link</string>
+
+    <string name="default_link_1">https://news.yandex.ru/Saint_Petersburg/index.rss</string>
+    <string name="default_link_2">https://news.yandex.ru/Yuzhno-Sakhalinsk/index.rss</string>
+    <string name="default_link_3">https://news.yandex.ru/Vladivostok/index.rss</string>
+    <string name="default_link_name_1">Link 1</string>
+    <string name="default_link_name_2">Link 2</string>
+    <string name="default_link_name_3">Link 3</string>
+
+
+</resources>
