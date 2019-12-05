@@ -8,4 +8,5 @@ import retrofit2.http.Url
 interface RssService {
     @GET
     fun getRss(@Url url: String): Call<RssFeed>
+
 }

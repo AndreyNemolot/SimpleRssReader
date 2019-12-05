@@ -40,7 +40,7 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
 
         val rssLink = getRssLink()
         viewModel.getData(rssLink.id, rssLink.link).observe(this, Observer {
-            adapter.setList(it.items)
+            adapter.setList(it)
         })
     }
 

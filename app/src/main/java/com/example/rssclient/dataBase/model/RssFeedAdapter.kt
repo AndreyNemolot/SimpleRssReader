@@ -8,11 +8,11 @@ class RssFeedAdapter(private val rssFeed: RssFeed, private val rssLinkId: Long) 
     private var myRssFeed = MyRssFeed()
 
 
-    fun getMyRssFeed(): MyRssFeed {
+    fun getMyRssFeed(): List<RssFeedItem> {
         try {
             adapt()
         }catch (e:Exception){ }
-        return myRssFeed
+        return myRssFeed.items
     }
 
     private fun adapt() {

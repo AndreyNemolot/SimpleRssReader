@@ -1,20 +1,18 @@
 package com.example.rssclient.fragments.rssLinksFragment
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.rssclient.App
 import com.example.rssclient.dataBase.AppDatabase
 import com.example.rssclient.dataBase.model.RssLink
-import com.example.rssclient.repository.local.RssLinkRepository
-import kotlinx.coroutines.*
+import com.example.rssclient.repository.RssLinkRepositoryImpl
 import java.lang.Exception
 import java.net.URL
 
 class RssLinksViewModel : ViewModel() {
     private val db: AppDatabase? = App.instance?.database
-    private val dbRepository = RssLinkRepository(db!!)
+    private val dbRepository =
+        RssLinkRepositoryImpl(db!!)
 
     fun addRssLink(rssLink: RssLink) {
         dbRepository.insertRssLink(rssLink)

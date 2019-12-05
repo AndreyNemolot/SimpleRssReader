@@ -5,12 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.rssclient.dataBase.AppDatabase
-import com.example.rssclient.dataBase.model.RssLink
-import com.example.rssclient.repository.local.RssLinkRepository
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import com.example.rssclient.repository.RssLinkRepositoryImpl
 import kotlinx.coroutines.*
-import java.io.InputStream
 
 
 class App : Application() {
@@ -32,7 +28,10 @@ class App : Application() {
         val rdc: RoomDatabase.Callback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 scope.launch {
-                    val repo = RssLinkRepository(database!!)
+                    val repo =
+                        RssLinkRepositoryImpl(
+                            database!!
+                        )
                     repo.insertRssLinks(
                         defaultLinksList
                     )

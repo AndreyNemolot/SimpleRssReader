@@ -9,6 +9,6 @@ import com.example.rssclient.dataBase.model.RssLink
 @Database(entities = [RssLink::class, RssFeedItem::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun rssLinkDao(): RssLinkDao
-    abstract fun OfflineRssItem(): FeedItemDao
+    abstract fun offlineRssItem(): FeedItemDao
 
 }
