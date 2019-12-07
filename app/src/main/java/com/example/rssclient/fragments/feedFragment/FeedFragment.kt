@@ -23,23 +23,33 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
     private lateinit var viewModel: FeedViewModel
     private lateinit var binding: FeedFragmentBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true;
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FeedFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
+        val rssLink = getRssLink()
+
+        viewModel = ViewModelProviders.of(this,
+            FeedViewModelFactory(
+                rssLink.id,
+                rssLink.link
+            )
+        )
+            .get(FeedViewModel::class.java)
         setRecyclerViewAdapter()
 
-        val rssLink = getRssLink()
-        viewModel.getData(rssLink.id, rssLink.link).observe(this, Observer {
+        viewModel.feedItemList.observe(this, Observer {
             adapter.setList(it)
         })
     }
