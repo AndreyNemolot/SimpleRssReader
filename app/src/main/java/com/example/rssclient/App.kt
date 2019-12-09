@@ -40,7 +40,7 @@ class App : Application() {
         }
         database = Room.databaseBuilder(
             this,
-            AppDatabase::class.java, stringFromResources(R.string.data_base_name)
+            AppDatabase::class.java, getString(R.string.data_base_name)
         )
             .addCallback(rdc)
             .build()

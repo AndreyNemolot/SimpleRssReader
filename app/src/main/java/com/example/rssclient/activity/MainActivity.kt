@@ -9,20 +9,29 @@ import com.example.rssclient.FragmentBuilder
 import com.example.rssclient.R
 import com.example.rssclient.fragments.feedFragment.FeedFragment
 import com.example.rssclient.fragments.rssLinksFragment.RssLinksFragment
-import com.example.rssclient.stringFromResources
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MainViewModel
     private val rssLinksFragment = RssLinksFragment()
     private val feedFragment = FeedFragment()
-
+    private lateinit var linksFragmentTag :String
+    private lateinit var feedFragmentTag : String
+    private lateinit var fragmentsMap : HashMap<String, Fragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setFragmentsMap()
         setViewModel()
         setLinksFragment()
+    }
+
+    private fun setFragmentsMap(){
+        linksFragmentTag = getString(R.string.rss_fragment_tag)
+        feedFragmentTag = getString(R.string.feed_fragment_tag)
+        fragmentsMap = hashMapOf(
+        linksFragmentTag to rssLinksFragment, feedFragmentTag to feedFragment)
     }
 
     private fun setViewModel() {
@@ -31,24 +40,24 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setLinksFragment() {
-        FragmentBuilder(
-            supportFragmentManager,
-            rssLinksFragment, viewModel.currentFragmentTag
-        )
-            .commit()
+        if(!viewModel.isFirst){
+            FragmentBuilder(
+                supportFragmentManager,
+                getString(R.string.rss_fragment_tag),
+                fragmentsMap
+            ).commit()
+            viewModel.isFirst = true
+        }
     }
-
 
     fun setFeedFragment(tag: String, data: Parcelable) {
-        viewModel.currentFragmentTag = tag
-
         FragmentBuilder(
             supportFragmentManager,
-            FeedFragment(), viewModel.currentFragmentTag
+            tag,
+            fragmentsMap
         )
             .addToBackStack()
-            .setParcelableData(stringFromResources(R.string.key_rss_link), data)
+            .setParcelableData(getString(R.string.key_rss_link), data)
             .commit()
     }
-
 }

@@ -14,7 +14,6 @@ import com.example.rssclient.adapter.FeedListAdapter
 import com.example.rssclient.dataBase.model.RssFeedItem
 import com.example.rssclient.dataBase.model.RssLink
 import com.example.rssclient.databinding.FeedFragmentBinding
-import com.example.rssclient.stringFromResources
 
 
 class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
@@ -25,7 +24,7 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true;
+        retainInstance = true
     }
 
     override fun onCreateView(
@@ -38,20 +37,23 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val rssLink = getRssLink()
-
-        viewModel = ViewModelProviders.of(this,
-            FeedViewModelFactory(
-                rssLink.id,
-                rssLink.link
-            )
-        )
-            .get(FeedViewModel::class.java)
+        setViewModel()
         setRecyclerViewAdapter()
 
         viewModel.feedItemList.observe(this, Observer {
             adapter.setList(it)
         })
+    }
+
+    private fun setViewModel(){
+        val rssLink = getRssLink()
+        viewModel = ViewModelProviders.of(
+            this,
+            FeedViewModelFactory(
+                rssLink.id,
+                rssLink.link
+            )
+        ).get(FeedViewModel::class.java)
     }
 
     private fun setRecyclerViewAdapter() {
@@ -64,7 +66,7 @@ class FeedFragment : Fragment(), FeedListAdapter.OnItemClickListener {
         val bundle = this.arguments
         if (bundle != null) {
             val rssLink =
-                bundle.getParcelable<RssLink>(stringFromResources(R.string.key_rss_link))
+                bundle.getParcelable<RssLink>(getString(R.string.key_rss_link))
             if (rssLink != null) {
                 return rssLink
             }

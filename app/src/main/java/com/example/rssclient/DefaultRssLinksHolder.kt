@@ -29,7 +29,7 @@ class DefaultRssLinksHolder(private val context: Context) {
         var json = ""
         try {
             val inputStream: InputStream = context
-                .assets.open(context.stringFromResources(R.string.default_links_file))
+                .assets.open(context.getString(R.string.default_links_file))
             json = inputStream.bufferedReader().use { it.readText() }
         } catch (ex: Exception) {
             ex.printStackTrace()

@@ -3,7 +3,7 @@
     <string name="rss_fragment_tag">rss_fragment</string>
     <string name="feed_fragment_tag">feed_fragment</string>
     <string name="web_fragment_tag">web_fragment</string>
-
+    <string name="dialog_fragment_tag">dialog_fragment</string>
 
     <string name="add_rss_link_dialog_text">Please input new rss link</string>
     <string name="add_new_rss_link">Add</string>
@@ -16,6 +16,10 @@
 
     <string name="data_base_name">database</string>
     <string name="default_links_file">defaultLinks.json</string>
+
+    <string name="url_not_valid">URL not valid</string>
+    <string name="empty_link_name">Link name is empty</string>
+
 
 
 

@@ -8,7 +8,6 @@ import com.example.rssclient.dataBase.model.RssFeedAdapter
 import com.example.rssclient.dataBase.model.RssFeedItem
 import com.example.rssclient.network.Controller
 import kotlinx.coroutines.*
-import me.toptas.rssconverter.RssFeed
 
 
 class FeedRepositoryImpl(private val controller: Controller, private val database: AppDatabase) :

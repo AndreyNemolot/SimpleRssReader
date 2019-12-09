@@ -8,34 +8,40 @@ import androidx.fragment.app.FragmentTransaction
 
 class FragmentBuilder(
     private val fragmentManager: FragmentManager,
-    fragment: Fragment,
-    fragmentTag: String
+    private val fragmentTag: String,
+    private val fragmentsMap: HashMap<String, Fragment>
 ) {
     private val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-    private var chosenFragment = Fragment()
 
     init {
-        setFragment(fragment, fragmentTag)
+        setFragment()
     }
 
-    private fun setFragment(fragment: Fragment, to: String): FragmentBuilder {
-        val fragmentTo = fragmentManager.findFragmentByTag(to)
+    private fun setFragment(): FragmentBuilder {
+        val fragmentTo = fragmentManager.findFragmentByTag(fragmentTag)
         if (fragmentTo == null || !fragmentTo.isAdded) {
-            chosenFragment = fragment
-            fragmentTransaction.replace(R.id.fragmentContainer, chosenFragment, to)
+            fragmentTransaction.add(
+                R.id.fragmentContainer,
+                fragmentsMap[fragmentTag]!!,
+                fragmentTag
+            )
+            if (!fragmentsMap[fragmentTag]!!.isVisible) {
+                fragmentTransaction.replace(
+                    R.id.fragmentContainer,
+                    fragmentsMap[fragmentTag]!!,
+                    fragmentTag
+                )
+            }
         } else {
-            chosenFragment = fragmentTo
-            fragmentTransaction.replace(R.id.fragmentContainer, chosenFragment, to)
-
+            fragmentTransaction.replace(R.id.fragmentContainer, fragmentTo, fragmentTag)
         }
         return this
     }
 
-
     fun setParcelableData(key: String, data: Parcelable): FragmentBuilder {
         val bundle = Bundle()
         bundle.putParcelable(key, data)
-        chosenFragment.arguments = bundle
+        fragmentsMap[fragmentTag]!!.arguments = bundle
         return this
     }
 
